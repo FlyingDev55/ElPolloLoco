@@ -1,10 +1,17 @@
+const levelMap = new Map([
+  [1, 2160],
+  [2, 4320],
+  [3, 8640],
+]);
+
 const level1 = new Level(
   [new Chicken(), new Chicken(), new Chicken()],
   [new Cloud(), new Cloud(), new Cloud()],
-  createBackgroundObjects(),
+  createBackgroundObjects(1),
 );
+level1.levelWidth = levelMap.get(1);
 
-function createBackgroundObjects() {
+function createBackgroundObjects(levelNumber) {
   const baseLayerPaths = [
     "../img/5_background/layers/air.png",
     "../img/5_background/layers/3_third_layer/",
@@ -14,16 +21,19 @@ function createBackgroundObjects() {
 
   const objects = [];
 
-  for (let i = -3; i <= 3; i++) {
+  const tileWidth = 720;
+  const levelWidth = levelMap.get(levelNumber);
+
+  const maxTiles = levelWidth / tileWidth;
+
+  for (let i = -1; i <= maxTiles; i++) {
     baseLayerPaths.forEach((basePath, index) => {
-      // air.png hat keine Nummer
       if (index === 0) {
-        objects.push(new BackgroundObject(basePath, i * 720));
+        objects.push(new BackgroundObject(basePath, i * tileWidth));
       } else {
-        // Berechne die Nummer (1 oder 2) basierend auf i
         const imageNumber = Math.abs(i) % 2 === 0 ? 1 : 2;
         objects.push(
-          new BackgroundObject(`${basePath}${imageNumber}.png`, i * 720),
+          new BackgroundObject(`${basePath}${imageNumber}.png`, i * tileWidth),
         );
       }
     });
