@@ -26,6 +26,6 @@ class Chicken extends MovableObject {
       }
     }, 200);
 
-    this.moveLeft();
+    this.autoMoveLeft(this.speed);
   }
 }

@@ -21,14 +21,19 @@ class MovableObject {
     });
   }
 
-  moveRight() {
-    this.x += 10;
+  moveRight(speed) {
+    this.x += speed;
     console.log("moving right");
   }
 
-  moveLeft() {
+  moveLeft(speed) {
+    this.x -= speed;
+    console.log("moving left");
+  }
+
+  autoMoveLeft(speed) {
     setInterval(() => {
-      this.x -= this.speed;
+      this.x -= speed;
     }, 1000 / 60);
   }
 }
