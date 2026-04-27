@@ -14,7 +14,8 @@ class Endboss extends Chicken {
   ];
 
   constructor() {
-    super().loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
+    super();
+    this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
     this.x = 2200 + Math.random() * 500;
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
@@ -22,11 +23,11 @@ class Endboss extends Chicken {
 
   animate() {
     setInterval(() => {
-      let path = this.IMAGES_WALKING[this.currentImage];
+      let path = this.IMAGES_WALKING[this.currentImageWalking];
       this.img = this.imageCache[path];
-      this.currentImage++;
-      if (this.currentImage >= this.IMAGES_WALKING.length) {
-        this.currentImage = 0;
+      this.currentImageWalking++;
+      if (this.currentImageWalking >= this.IMAGES_WALKING.length) {
+        this.currentImageWalking = 0;
       }
     }, 200);
   }

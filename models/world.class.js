@@ -1,9 +1,8 @@
 class World {
-  character = new Character();
+  character;
   level = level1;
   ctx;
   canvas;
-
   keyboard;
   camera_x = 0;
 
@@ -11,8 +10,9 @@ class World {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.keyboard = keyboard;
-    this.draw();
+    this.character = new Character();
     this.setWorld();
+    this.draw();
   }
 
   setWorld() {
@@ -39,6 +39,11 @@ class World {
   }
 
   addToMap(movableObject) {
+    if (!movableObject?.img) {
+      console.warn("Kein Bild für Objekt:", movableObject);
+      return;
+    }
+
     if (movableObject.otherDirection) {
       this.ctx.save();
       this.ctx.translate(movableObject.width, 0);

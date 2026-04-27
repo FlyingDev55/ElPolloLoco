@@ -5,12 +5,18 @@ class MovableObject {
   height = 150;
   width = 100;
   imageCache = [];
-  currentImage = 0;
+  currentImageWalking = 0;
+  currentImageJumping = 0;
+  currentImageIdle = 0;
   speed = 0.15;
+  speedY = 0;
+  acceleration = 1;
+  otherDirection = false;
 
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
+    return this.img;
   }
 
   loadImages(array) {
@@ -23,12 +29,16 @@ class MovableObject {
 
   moveRight(speed) {
     this.x += speed;
-    console.log("moving right");
+    this.otherDirection = false;
   }
 
   moveLeft(speed) {
     this.x -= speed;
-    console.log("moving left");
+    this.otherDirection = true;
+  }
+
+  jump() {
+    this.speedY = 23;
   }
 
   autoMoveLeft(speed) {

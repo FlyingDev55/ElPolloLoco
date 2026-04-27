@@ -18,7 +18,6 @@ window.addEventListener("keydown", (event) => {
   }
 
   if (event.key === " ") {
-    world.character.jump();
     keyboard.space = true;
   }
 });
