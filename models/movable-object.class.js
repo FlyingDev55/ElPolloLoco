@@ -8,10 +8,15 @@ class MovableObject {
   currentImageWalking = 0;
   currentImageJumping = 0;
   currentImageIdle = 0;
+  currentImageHurt = 0;
+  currentImageDead = 0;
   speed = 0.15;
   speedY = 0;
   acceleration = 1;
   otherDirection = false;
+  energy;
+  lastHit = 0;
+  HURT_DURATION = 1000;
 
   loadImage(path) {
     this.img = new Image();
@@ -32,11 +37,36 @@ class MovableObject {
   }
 
   drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
+    if (this instanceof Character || this instanceof Chicken) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  isColliding(movableObject) {
+    return (
+      this.x + this.width > movableObject.x &&
+      this.x < movableObject.x + movableObject.width &&
+      this.y + this.height > movableObject.y &&
+      this.y < movableObject.y + movableObject.height
+    );
+  }
+
+  hit() {
+    this.energy -= 2;
+    this.lastHit = Date.now();
+    this.currentImageHurt = 0;
+  }
+
+  isDead() {
+    return this.energy <= 0;
+  }
+
+  isHurt() {
+    return Date.now() - this.lastHit < this.HURT_DURATION;
   }
 
   moveRight(speed) {
