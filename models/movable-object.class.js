@@ -7,16 +7,6 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   HURT_DURATION = 1000;
 
-  drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
-
   isColliding(movableObject) {
     return (
       this.x + this.width > movableObject.x &&
