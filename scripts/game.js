@@ -20,6 +20,10 @@ window.addEventListener("keydown", (event) => {
   if (event.key === " ") {
     keyboard.space = true;
   }
+
+  if (event.key === "d") {
+    keyboard.d = true;
+  }
 });
 
 window.addEventListener("keyup", (event) => {
@@ -31,5 +35,8 @@ window.addEventListener("keyup", (event) => {
   }
   if (event.key === " ") {
     keyboard.space = false;
+  }
+  if (event.key === "d") {
+    keyboard.d = false;
   }
 });

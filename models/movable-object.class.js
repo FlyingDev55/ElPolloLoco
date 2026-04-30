@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
   energy;
   lastHit = 0;
   HURT_DURATION = 1000;
+  ground;
 
   isColliding(movableObject) {
     return (
@@ -14,6 +15,22 @@ class MovableObject extends DrawableObject {
       this.y + this.height > movableObject.y &&
       this.y < movableObject.y + movableObject.height
     );
+  }
+
+  applyGravity() {
+    setInterval(() => {
+      if (this.isAboveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      }
+    }, 1000 / 25);
+  }
+
+  isAboveGround() {
+    if (this instanceof ThrowableObject) {
+      return true;
+    }
+    return this.y < this.ground;
   }
 
   hit() {

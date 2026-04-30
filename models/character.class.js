@@ -48,19 +48,6 @@ class Character extends MovableObject {
     this.animate();
   }
 
-  applyGravity() {
-    setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-      }
-    }, 1000 / 25);
-  }
-
-  isAboveGround() {
-    return this.y < this.ground;
-  }
-
   animate() {
     this.calculateMovement();
     this.changeGraphics();
