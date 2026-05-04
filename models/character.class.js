@@ -9,6 +9,13 @@ class Character extends MovableObject {
   ground = 152;
   energy = 100;
 
+  offset = {
+    top: 140,
+    left: 25,
+    right: 35,
+    bottom: 20,
+  };
+
   IMAGES_IDLE = ["../img/2_character_pepe/1_idle/idle/I-1.png"];
 
   IMAGES_WALKING = [
