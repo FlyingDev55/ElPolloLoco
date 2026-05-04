@@ -60,6 +60,10 @@ class Character extends MovableObject {
     this.changeGraphics();
   }
 
+  bounce() {
+    this.speedY = 15;
+  }
+
   calculateMovement() {
     setInterval(() => {
       if (this.isDead()) {
@@ -94,14 +98,5 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE, "currentImageIdle");
       }
     }, 70);
-  }
-
-  playAnimation(images, indexProp) {
-    let path = images[this[indexProp]];
-    this.img = this.imageCache[path];
-    this[indexProp]++;
-    if (this[indexProp] >= images.length) {
-      this[indexProp] = 0;
-    }
   }
 }

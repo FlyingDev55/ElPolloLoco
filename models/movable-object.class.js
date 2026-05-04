@@ -7,8 +7,24 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   HURT_DURATION = 1000;
   ground;
+  isCollidable = true;
+
+  puffer = 10;
+
+  isCollidingFromAbove(movableObject) {
+    return (
+      this.isColliding(movableObject) &&
+      this.speedY < 0 &&
+      this.y + this.height - this.offset.bottom <
+        movableObject.y + movableObject.offset.top + this.puffer
+    );
+  }
 
   isColliding(movableObject) {
+    if (this.isCollidable === false || movableObject.isCollidable === false) {
+      return false;
+    }
+
     const offset = movableObject.offset ?? {
       top: 0,
       left: 0,
@@ -63,16 +79,21 @@ class MovableObject extends DrawableObject {
 
   moveLeft(speed) {
     this.x -= speed;
-    this.otherDirection = true;
+    if (this instanceof Character) {
+      this.otherDirection = true;
+    }
   }
 
   jump() {
     this.speedY = 23;
   }
 
-  autoMoveLeft(speed) {
-    setInterval(() => {
-      this.x -= speed;
-    }, 1000 / 60);
+  playAnimation(images, indexProp) {
+    let path = images[this[indexProp]];
+    this.img = this.imageCache[path];
+    this[indexProp]++;
+    if (this[indexProp] >= images.length) {
+      this[indexProp] = 0;
+    }
   }
 }
