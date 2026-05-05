@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Hintergrund -->
+  <rect width="64" height="64" rx="12" fill="#ff8f00"></rect>
+
+  <!-- Text -->
+  <text x="50%" y="55%" font-size="26" text-anchor="middle" fill="#fff200" font-family="Arial Black, sans-serif" stroke="#8b2c00" stroke-width="2" dy=".3em">
+    EPL
+  </text>
+</svg>
