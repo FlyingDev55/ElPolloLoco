@@ -26,7 +26,21 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
+      this.checkThrowableObjectCollisions();
     }, 100);
+  }
+
+  checkThrowableObjectCollisions() {
+    this.throwableObjects.forEach((throwableObject, index) => {
+      this.level.enemies.forEach((enemy) => {
+        if (throwableObject.isColliding(enemy)) {
+          console.log("Throwable object hit enemy!", enemy);
+          throwableObject.hit();
+          enemy.hit();
+          this.throwableObjects.splice(index, 1);
+        }
+      });
+    });
   }
 
   checkCollisions() {
@@ -51,7 +65,6 @@ class World {
         this.character.y + 100,
       );
       this.throwableObjects.push(throwableObject);
-      throwableObject.throw();
     }
   }
 

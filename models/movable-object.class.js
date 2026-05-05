@@ -11,6 +11,13 @@ class MovableObject extends DrawableObject {
 
   puffer = 10;
 
+  offset = {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
+
   isCollidingFromAbove(movableObject) {
     return (
       this.isColliding(movableObject) &&

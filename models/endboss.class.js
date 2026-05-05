@@ -1,7 +1,9 @@
 class Endboss extends Chicken {
-  y = 290;
-  height = 140;
-  width = 140;
+  y = 60;
+  height = 400;
+  width = 400;
+  energy = 50;
+  speed = 0;
   IMAGES_WALKING = [
     ,
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -13,22 +15,18 @@ class Endboss extends Chicken {
     "img/4_enemie_boss_chicken/2_alert/G12.png",
   ];
 
+  offset = {
+    top: 80,
+    left: 40,
+    right: 270,
+    bottom: 200,
+  };
+
   constructor() {
     super();
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
-    this.x = 2200 + Math.random() * 500;
+    this.x = 2400;
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
-  }
-
-  animate() {
-    setInterval(() => {
-      let path = this.IMAGES_WALKING[this.currentImageWalking];
-      this.img = this.imageCache[path];
-      this.currentImageWalking++;
-      if (this.currentImageWalking >= this.IMAGES_WALKING.length) {
-        this.currentImageWalking = 0;
-      }
-    }, 200);
   }
 }

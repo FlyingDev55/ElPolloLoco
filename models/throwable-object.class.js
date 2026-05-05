@@ -10,11 +10,18 @@ class ThrowableObject extends MovableObject {
     this.acceleration = 1.5;
     this.applyGravity();
     this.ground = 360;
-    this.throw(this.x + 50, 300);
+    this.throw();
   }
 
+  offset = {
+    top: 5,
+    left: 15,
+    right: 15,
+    bottom: 5,
+  };
+
   throw() {
-    this.speedY = 30;
+    this.speedY = 15;
     this.applyGravity();
     setInterval(() => {
       this.x += 10;

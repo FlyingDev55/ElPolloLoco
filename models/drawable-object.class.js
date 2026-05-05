@@ -30,7 +30,11 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken) {
+    if (
+      this instanceof Character ||
+      this instanceof Chicken ||
+      this instanceof ThrowableObject
+    ) {
       const offset = this.offset ?? {
         top: 0,
         left: 0,
