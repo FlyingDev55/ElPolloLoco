@@ -2,8 +2,12 @@ let canvas;
 let world;
 let keyboard;
 
-function init() {
+function init() {}
+
+function startGame() {
+  document.getElementById("start-screen").style.display = "none";
   canvas = document.getElementById("canvas");
+  canvas.style.display = "block";
   keyboard = new Keyboard();
   world = new World(canvas, keyboard);
   console.log("My world is: ", world.character);

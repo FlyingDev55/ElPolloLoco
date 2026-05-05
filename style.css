@@ -17,6 +17,7 @@ body {
 
 canvas {
   background-color: black;
+  display: none;
 }
 
 h1 {
@@ -25,4 +26,43 @@ h1 {
   letter-spacing: 4px;
   font-family: "zabras", Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+#start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 720px;
+  height: 480px;
+
+  background-image: url("../img/9_intro_outro_screens/start/startscreen_1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#start-screen button {
+  font-size: 28px;
+  font-weight: bold;
+  font-family: "zabras", Arial, Helvetica, sans-serif;
+  padding: 12px 24px;
+
+  color: black;
+  background: linear-gradient(180deg, #ffb300, #ff6f00);
+  border: 4px solid #8b2c00;
+  border-radius: 12px;
+
+  box-shadow:
+    0 6px 0 #8b2c00,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#start-screen button:hover {
+  filter: brightness(1.2);
 }
