@@ -6,7 +6,7 @@ class Character extends MovableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2;
-  ground = 152;
+
   energy = 100;
 
   offset = {

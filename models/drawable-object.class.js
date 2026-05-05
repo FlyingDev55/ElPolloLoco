@@ -10,6 +10,8 @@ class DrawableObject {
   currentImageIdle = 0;
   currentImageHurt = 0;
   currentImageDead = 0;
+  currentImageBottleRotation = 0;
+  currentImageBottleBroken = 0;
 
   loadImage(path) {
     this.img = new Image();

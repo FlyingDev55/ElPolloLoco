@@ -3,10 +3,10 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   acceleration = 1;
   otherDirection = false;
-  energy;
+  energy = 1;
   lastHit = 0;
   HURT_DURATION = 1000;
-  ground;
+  ground = 152;
   isCollidable = true;
 
   puffer = 10;
@@ -51,6 +51,13 @@ class MovableObject extends DrawableObject {
 
   applyGravity() {
     setInterval(() => {
+      if (this instanceof ThrowableObject) {
+        if (!this.isAboveGround()) {
+          this.energy = 0;
+          return;
+        }
+      }
+
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
@@ -59,9 +66,6 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) {
-      return true;
-    }
     return this.y < this.ground;
   }
 

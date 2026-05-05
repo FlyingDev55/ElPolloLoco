@@ -2,6 +2,7 @@ class Cloud extends MovableObject {
   width = 500;
   height = 250;
   speed = 0.15;
+  isCollidable = false;
 
   constructor() {
     super();
