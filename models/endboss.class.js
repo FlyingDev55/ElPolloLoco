@@ -14,6 +14,12 @@ class Endboss extends Chicken {
     "img/4_enemie_boss_chicken/2_alert/G12.png",
   ];
 
+  IMAGES_DEAD = [
+    "img/4_enemie_boss_chicken/5_dead/G24.png",
+    "img/4_enemie_boss_chicken/5_dead/G25.png",
+    "img/4_enemie_boss_chicken/5_dead/G26.png",
+  ];
+
   offset = {
     top: 80,
     left: 40,
@@ -26,6 +32,7 @@ class Endboss extends Chicken {
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
     this.x = 4000;
     this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_DEAD);
     this.animate();
     this.startSpawning();
   }

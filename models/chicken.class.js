@@ -55,7 +55,7 @@ class Chicken extends MovableObject {
   changeGraphics() {
     this.graphicsInterval = setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD, "currentImageDead");
+        this.playAnimationOnce(this.IMAGES_DEAD, "currentImageDead");
       } else {
         this.playAnimation(this.IMAGES_WALKING, "currentImageWalking");
       }
