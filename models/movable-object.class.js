@@ -49,6 +49,10 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  isCollidingWithGround() {
+    return this.y - this.offset.bottom >= this.ground;
+  }
+
   applyGravity() {
     setInterval(() => {
       if (this instanceof ThrowableObject) {
@@ -106,5 +110,16 @@ class MovableObject extends DrawableObject {
     if (this[indexProp] >= images.length) {
       this[indexProp] = 0;
     }
+  }
+
+  playAnimationOnce(images, indexProp) {
+    if (this[indexProp] >= images.length) {
+      this[indexProp] = images.length - 1;
+      return;
+    }
+
+    let path = images[this[indexProp]];
+    this.img = this.imageCache[path];
+    this[indexProp]++;
   }
 }

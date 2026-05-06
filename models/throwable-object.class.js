@@ -13,12 +13,12 @@ class ThrowableObject extends MovableObject {
   ];
 
   IMAGES_BROKEN = [
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
-    "/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
   constructor(x, y) {
@@ -60,7 +60,7 @@ class ThrowableObject extends MovableObject {
   changeGraphics() {
     setInterval(() => {
       if (this.isBroken()) {
-        this.playAnimation(this.IMAGES_BROKEN, "currentImageBottleBroken");
+        this.playAnimationOnce(this.IMAGES_BROKEN, "currentImageBottleBroken");
       } else {
         this.playAnimation(this.IMAGES_ROTATION, "currentImageBottleRotation");
       }

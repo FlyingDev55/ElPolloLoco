@@ -27,20 +27,8 @@ class World {
       this.checkCollisions();
       this.checkThrowObjects();
       this.checkThrowableObjectCollisions();
+      this.cleanUpThrowableObjects();
     }, 100);
-  }
-
-  checkThrowableObjectCollisions() {
-    this.throwableObjects.forEach((throwableObject, index) => {
-      this.level.enemies.forEach((enemy) => {
-        if (throwableObject.isColliding(enemy)) {
-          console.log("Throwable object hit enemy!", enemy);
-          throwableObject.hit();
-          enemy.hit();
-          this.throwableObjects.splice(index, 1);
-        }
-      });
-    });
   }
 
   checkCollisions() {
@@ -66,6 +54,26 @@ class World {
       );
       this.throwableObjects.push(throwableObject);
     }
+  }
+
+  checkThrowableObjectCollisions() {
+    this.throwableObjects.forEach((throwableObject, index) => {
+      this.level.enemies.forEach((enemy) => {
+        if (throwableObject.isColliding(enemy)) {
+          console.log("Throwable object hit enemy!", enemy);
+          throwableObject.hit();
+          enemy.hit();
+        }
+      });
+    });
+  }
+
+  cleanUpThrowableObjects() {
+    this.throwableObjects = this.throwableObjects.filter((obj) => {
+      if (!obj.isBroken()) return true;
+
+      return Date.now() - obj.lastHit < 1000;
+    });
   }
 
   draw() {
