@@ -2,7 +2,7 @@ class Level {
   enemies;
   clouds;
   backgroundObjects;
-  levelWidth = 2160;
+  levelWidth = 4320;
 
   constructor(enemies, clouds, backgroundObjects) {
     this.enemies = enemies;

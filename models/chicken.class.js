@@ -29,11 +29,11 @@ class Chicken extends MovableObject {
   }
 
   createRandomLocationForSpawn() {
-    this.x = 400 + Math.random() * 500;
+    this.x = 800 + Math.random() * 3000;
   }
 
   createRandomSpeedOnSpawn() {
-    this.speed = 0.3 + Math.random() * 0.25;
+    this.speed = 0.8 + Math.random() * 0.25;
   }
 
   animate() {

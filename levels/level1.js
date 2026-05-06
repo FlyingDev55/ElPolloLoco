@@ -1,11 +1,26 @@
 const levelMap = new Map([
-  [1, 2160],
-  [2, 4320],
-  [3, 8640],
+  [1, 4320],
+  [2, 8640],
+  [3, 17280],
 ]);
 
+const listOfStartChicken = [
+  new Chicken(),
+  new Chicken(),
+  new Chicken(),
+  new Chicken(),
+  new Chicken(),
+  new Chicken(),
+  new MiniChicken(),
+  new MiniChicken(),
+  new MiniChicken(),
+  new MiniChicken(),
+  new MiniChicken(),
+  new Endboss(),
+];
+
 const level1 = new Level(
-  [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+  listOfStartChicken,
   [new Cloud(), new Cloud(), new Cloud()],
   createBackgroundObjects(1),
 );

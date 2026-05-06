@@ -25,7 +25,7 @@ class Endboss extends Chicken {
   constructor() {
     super();
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
-    this.x = 2400;
+    this.x = 3800;
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
   }
