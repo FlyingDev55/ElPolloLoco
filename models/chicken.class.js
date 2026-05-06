@@ -42,7 +42,7 @@ class Chicken extends MovableObject {
   }
 
   calculateMovement() {
-    setInterval(() => {
+    this.moveInterval = setInterval(() => {
       if (this.isDead()) {
         this.speed = 0;
         this.isCollidable = false;
@@ -53,7 +53,7 @@ class Chicken extends MovableObject {
   }
 
   changeGraphics() {
-    setInterval(() => {
+    this.graphicsInterval = setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD, "currentImageDead");
       } else {

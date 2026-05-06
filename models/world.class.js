@@ -18,8 +18,17 @@ class World {
     this.run();
   }
 
+  addEnemy(enemy) {
+    enemy.world = this;
+    this.level.enemies.push(enemy);
+  }
+
   setWorld() {
     this.character.world = this;
+
+    this.level.enemies.forEach((enemy) => {
+      enemy.world = this;
+    });
   }
 
   run() {
@@ -28,6 +37,7 @@ class World {
       this.checkThrowObjects();
       this.checkThrowableObjectCollisions();
       this.cleanUpThrowableObjects();
+      this.cleanUpEnemies();
     }, 100);
   }
 
@@ -73,6 +83,21 @@ class World {
       if (!obj.isBroken()) return true;
 
       return Date.now() - obj.lastHit < 1000;
+    });
+  }
+
+  cleanUpEnemies() {
+    this.level.enemies = this.level.enemies.filter((enemy) => {
+      if (enemy instanceof Endboss) return true;
+
+      const screenX = enemy.x + this.camera_x;
+
+      if (screenX < -600) {
+        enemy.destroy();
+        return false;
+      }
+
+      return true;
     });
   }
 

@@ -45,7 +45,7 @@ class ThrowableObject extends MovableObject {
   }
 
   calculateMovement() {
-    setInterval(() => {
+    this.moveInterval = setInterval(() => {
       if (this.isBroken()) {
         this.speed = 0;
         this.speedY = 0;
@@ -58,7 +58,7 @@ class ThrowableObject extends MovableObject {
   }
 
   changeGraphics() {
-    setInterval(() => {
+    this.graphicsInterval = setInterval(() => {
       if (this.isBroken()) {
         this.playAnimationOnce(this.IMAGES_BROKEN, "currentImageBottleBroken");
       } else {

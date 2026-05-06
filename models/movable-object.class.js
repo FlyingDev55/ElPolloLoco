@@ -8,6 +8,10 @@ class MovableObject extends DrawableObject {
   HURT_DURATION = 1000;
   ground = 152;
   isCollidable = true;
+  moveInterval;
+  animationInterval;
+  gravityInterval;
+  graphicsInterval;
 
   puffer = 10;
 
@@ -17,6 +21,15 @@ class MovableObject extends DrawableObject {
     right: 0,
     bottom: 0,
   };
+
+  destroy() {
+    this.isCollidable = false;
+
+    if (this.moveInterval) clearInterval(this.moveInterval);
+    if (this.animationInterval) clearInterval(this.animationInterval);
+    if (this.gravityInterval) clearInterval(this.gravityInterval);
+    if (this.graphicsInterval) clearInterval(this.graphicsInterval);
+  }
 
   isCollidingFromAbove(movableObject) {
     return (
@@ -54,7 +67,7 @@ class MovableObject extends DrawableObject {
   }
 
   applyGravity() {
-    setInterval(() => {
+    this.gravityInterval = setInterval(() => {
       if (this instanceof ThrowableObject) {
         if (!this.isAboveGround() && !this.isBroken()) {
           this.hit();
