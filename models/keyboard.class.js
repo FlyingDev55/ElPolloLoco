@@ -3,4 +3,6 @@ class Keyboard {
   right = false;
   space = false;
   d = false;
+
+  dPressedAt = 0;
 }

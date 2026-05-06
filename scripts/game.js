@@ -26,6 +26,9 @@ window.addEventListener("keydown", (event) => {
   }
 
   if (event.key === "d") {
+    if (!keyboard.d) {
+      keyboard.dPressedAt = Date.now();
+    }
     keyboard.d = true;
   }
 });
@@ -42,5 +45,9 @@ window.addEventListener("keyup", (event) => {
   }
   if (event.key === "d") {
     keyboard.d = false;
+
+    const pressDuration = Date.now() - keyboard.dPressedAt;
+
+    world.throwBottle(pressDuration);
   }
 });

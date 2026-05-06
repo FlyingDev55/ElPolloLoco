@@ -19,6 +19,21 @@ class World {
     this.run();
   }
 
+  throwBottle(duration) {
+    const maxTime = 3000;
+    const limitedDuration = Math.min(duration, maxTime);
+    const power = limitedDuration / maxTime;
+
+    let throwableObject = new ThrowableObject(
+      this.character.x + 50,
+      this.character.y + 150,
+    );
+    throwableObject.speed = 5 + power * 10;
+    throwableObject.speedY = 10 + power * 10;
+
+    this.throwableObjects.push(throwableObject);
+  }
+
   startCloudSpawning() {
     this.scheduleNextCloud();
   }
@@ -60,7 +75,6 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
-      this.checkThrowObjects();
       this.checkThrowableObjectCollisions();
       this.cleanUpThrowableObjects();
       this.cleanUpEnemies();
