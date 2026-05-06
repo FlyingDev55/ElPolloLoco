@@ -19,12 +19,30 @@ const listOfStartChicken = [
   new Endboss(),
 ];
 
+const cloudsAtStart = createCloudsAtStart(levelMap.get(1));
+
 const level1 = new Level(
   listOfStartChicken,
-  [new Cloud(), new Cloud(), new Cloud()],
+  cloudsAtStart,
   createBackgroundObjects(1),
 );
 level1.levelWidth = levelMap.get(1);
+
+function createCloudsAtStart(levelWidth) {
+  const clouds = [];
+
+  const spacing = 400;
+
+  for (let x = 0; x < levelWidth; x += spacing) {
+    const randomOffset = Math.random() * 200;
+    const cloudX = x + randomOffset;
+    const cloudY = Math.random() * 150;
+
+    clouds.push(new Cloud(cloudX, cloudY));
+  }
+
+  return clouds;
+}
 
 function createBackgroundObjects(levelNumber) {
   const baseLayerPaths = [

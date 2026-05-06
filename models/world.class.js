@@ -14,8 +14,34 @@ class World {
     this.keyboard = keyboard;
     this.character = new Character();
     this.setWorld();
+    this.startCloudSpawning();
     this.draw();
     this.run();
+  }
+
+  startCloudSpawning() {
+    this.scheduleNextCloud();
+  }
+
+  scheduleNextCloud() {
+    setTimeout(() => {
+      this.spawnCloud();
+      this.scheduleNextCloud();
+    }, this.getRandomCloudSpawningTime());
+  }
+
+  getRandomCloudSpawningTime() {
+    return 1000 + Math.random() * 4000;
+  }
+
+  spawnCloud() {
+    const rightEdge = -this.camera_x + this.canvas.width;
+    let cloudPositionX = rightEdge + 200;
+    let cloudPositionY = Math.random() * 150;
+    let cloud = new Cloud(cloudPositionX, cloudPositionY);
+    cloud.speed = cloud.speed + Math.random() * 0.3;
+
+    this.level.clouds.push(cloud);
   }
 
   addEnemy(enemy) {
@@ -38,6 +64,7 @@ class World {
       this.checkThrowableObjectCollisions();
       this.cleanUpThrowableObjects();
       this.cleanUpEnemies();
+      this.cleanUpClouds();
     }, 100);
   }
 
@@ -101,6 +128,18 @@ class World {
     });
   }
 
+  cleanUpClouds() {
+    this.level.clouds = this.level.clouds.filter((cloud) => {
+      const screenX = cloud.x + this.camera_x;
+      if (screenX < -600) {
+        cloud.destroy();
+        return false;
+      }
+
+      return true;
+    });
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -138,7 +177,7 @@ class World {
     }
 
     movableObject.draw(this.ctx);
-    movableObject.drawFrame(this.ctx);
+    // movableObject.drawFrame(this.ctx);
 
     if (movableObject.otherDirection) {
       this.flipImageBack(movableObject);
