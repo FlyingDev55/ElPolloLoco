@@ -70,4 +70,12 @@ class ThrowableObject extends MovableObject {
   isBroken() {
     return this.energy <= 0;
   }
+
+  hit() {
+    if (!this.isBroken()) {
+      this.energy = 0;
+      this.lastHit = Date.now();
+      this.currentImageBottleBroken = 0;
+    }
+  }
 }

@@ -56,8 +56,8 @@ class MovableObject extends DrawableObject {
   applyGravity() {
     setInterval(() => {
       if (this instanceof ThrowableObject) {
-        if (!this.isAboveGround()) {
-          this.energy = 0;
+        if (!this.isAboveGround() && !this.isBroken()) {
+          this.hit();
           return;
         }
       }
