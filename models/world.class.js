@@ -5,7 +5,8 @@ class World {
   canvas;
   keyboard;
   camera_x = 0;
-  statusbar = new StatusBar();
+  statusbar;
+  statusbarBoss;
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -13,6 +14,8 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.keyboard = keyboard;
     this.character = new Character();
+    this.statusbar = new StatusBar();
+    this.statusbarBoss = new StatusBar(true, 510, 10);
     this.setWorld();
     this.startCloudSpawning();
     this.draw();
@@ -114,6 +117,10 @@ class World {
           console.log("Throwable object hit enemy!", enemy);
           throwableObject.hit();
           enemy.hit();
+
+          if (enemy instanceof Endboss) {
+            this.statusbarBoss.setPercentage(enemy.energy);
+          }
         }
       });
     });
@@ -162,6 +169,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusbar);
+    this.addToMap(this.statusbarBoss);
     this.ctx.translate(this.camera_x, 0);
 
     this.addToMap(this.character);
