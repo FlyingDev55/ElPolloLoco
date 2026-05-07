@@ -2,7 +2,7 @@ class Endboss extends Chicken {
   y = 60;
   height = 400;
   width = 400;
-  energy = 50;
+  energy = 100;
   speed = 0;
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -59,13 +59,11 @@ class Endboss extends Chicken {
       chicken = new MiniChicken();
       chicken.y = 385;
     }
-
     chicken.x = this.x + this.width - 80;
-
     this.world.addEnemy(chicken);
   }
 
   getRandomSpawnTime() {
-    return 2000 + Math.random() * 3000;
+    return 1000 + Math.random() * 2000;
   }
 }
