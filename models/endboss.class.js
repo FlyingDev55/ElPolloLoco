@@ -55,6 +55,10 @@ class Endboss extends Chicken {
     if (Math.random() < 0.5) {
       chicken = new Chicken();
       chicken.y = 360;
+
+      if (Math.random() < 1 / 3) {
+        chicken.speed *= 5;
+      }
     } else {
       chicken = new MiniChicken();
       chicken.y = 385;
