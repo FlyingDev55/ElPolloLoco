@@ -136,6 +136,14 @@ class World {
 
   cleanUpEnemies() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
+      if (enemy.isDead()) {
+        if (Date.now() - enemy.lastHit > 3000) {
+          enemy.destroy();
+          return false;
+        }
+        return true;
+      }
+
       if (enemy instanceof Endboss) return true;
 
       const screenX = enemy.x + this.camera_x;
