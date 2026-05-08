@@ -6,6 +6,7 @@ class Character extends MovableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2;
+  coinCount = 0;
 
   energy = 100;
 
@@ -62,6 +63,10 @@ class Character extends MovableObject {
 
   bounce() {
     this.speedY = 15;
+  }
+
+  collectCoin() {
+    this.coinCount++;
   }
 
   calculateMovement() {

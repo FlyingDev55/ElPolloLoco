@@ -78,6 +78,7 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkCoinCollisions();
       this.checkThrowableObjectCollisions();
       this.cleanUpThrowableObjects();
       this.cleanUpEnemies();
@@ -96,6 +97,16 @@ class World {
         this.character.hit();
         this.statusbar.setPercentage(this.character.energy);
       }
+    });
+  }
+
+  checkCoinCollisions() {
+    this.level.coins = this.level.coins.filter((coin) => {
+      if (this.character.isColliding(coin)) {
+        this.character.collectCoin();
+        return false;
+      }
+      return true;
     });
   }
 
