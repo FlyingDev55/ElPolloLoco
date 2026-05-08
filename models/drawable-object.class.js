@@ -13,6 +13,7 @@ class DrawableObject {
   currentImageBottleRotation = 0;
   currentImageBottleBroken = 0;
   currentImageRotate = 0;
+  ground = 420;
 
   loadImage(path) {
     this.img = new Image();

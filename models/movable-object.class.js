@@ -6,7 +6,6 @@ class MovableObject extends DrawableObject {
   energy = 1;
   lastHit = 0;
   HURT_DURATION = 1000;
-  ground = 152;
   isCollidable = true;
   moveInterval;
   animationInterval;
@@ -83,7 +82,7 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    return this.y < this.ground;
+    return this.y + this.height < this.ground;
   }
 
   hit() {
