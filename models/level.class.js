@@ -3,6 +3,7 @@ class Level {
   clouds;
   backgroundObjects;
   levelWidth = 4320;
+  coins = [];
 
   constructor(enemies, clouds, backgroundObjects) {
     this.enemies = enemies;

@@ -3,6 +3,8 @@ class Chicken extends MovableObject {
   height = 70;
   width = 70;
   energy = 2;
+  hasCoin = false;
+  coinDropped = false;
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -60,5 +62,22 @@ class Chicken extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING, "currentImageWalking");
       }
     }, 200);
+  }
+
+  hit() {
+    super.hit();
+
+    if (this.isDead() && this.hasCoin && !this.coinDropped) {
+      this.coinDropped = true;
+
+      if (this.world) {
+        let coin = new Coin();
+        coin.world = this.world;
+        coin.x = this.x + this.width / 2 - coin.width / 2;
+        coin.y = this.y - 30;
+        coin.applyGravity();
+        this.world.level.coins.push(coin);
+      }
+    }
   }
 }
