@@ -186,12 +186,6 @@ body.game-running #game-wrapper {
   display: block;
 }
 
-#game-wrapper canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 .mobile-controls {
   position: absolute;
   left: 0;
