@@ -33,7 +33,6 @@ class Endboss extends Chicken {
     this.x = 4000;
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
-    this.animate();
     this.startSpawning();
   }
 
@@ -42,7 +41,7 @@ class Endboss extends Chicken {
   }
 
   scheduleNextSpawn() {
-    setTimeout(() => {
+    this.spawnTimeout = setTimeout(() => {
       this.spawnChicken();
       this.scheduleNextSpawn();
     }, this.getRandomSpawnTime());

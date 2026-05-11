@@ -25,7 +25,6 @@ class MiniChicken extends Chicken {
     this.loadImages(this.IMAGES_DEAD);
     this.createRandomLocationForSpawn();
     this.createRandomSpeedOnSpawn();
-    this.animate();
   }
 
   createRandomLocationForSpawn() {

@@ -66,3 +66,36 @@ h1 {
 #start-screen button:hover {
   filter: brightness(1.2);
 }
+
+.game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.game-over-screen img {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.game-over-buttons {
+  margin-top: 20px;
+}
+
+.game-over-buttons button {
+  padding: 10px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

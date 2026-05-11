@@ -8,6 +8,8 @@ class World {
   statusbar;
   statusbarBoss;
   throwableObjects = [];
+  gameOver = false;
+  runInterval;
 
   constructor(canvas, keyboard) {
     this.canvas = canvas;
@@ -20,6 +22,20 @@ class World {
     this.startCloudSpawning();
     this.draw();
     this.run();
+  }
+
+  run() {
+    this.runInterval = setInterval(() => {
+      if (this.gameOver) return;
+
+      this.checkCollisions();
+      this.checkCoinCollisions();
+      this.checkThrowableObjectCollisions();
+      this.cleanUpThrowableObjects();
+      this.cleanUpEnemies();
+      this.cleanUpClouds();
+      this.checkGameOver();
+    }, 100);
   }
 
   throwBottle(duration) {
@@ -42,7 +58,7 @@ class World {
   }
 
   scheduleNextCloud() {
-    setTimeout(() => {
+    this.cloudSpawnTimeout = setTimeout(() => {
       this.spawnCloud();
       this.scheduleNextCloud();
     }, this.getRandomCloudSpawningTime());
@@ -73,17 +89,6 @@ class World {
     this.level.enemies.forEach((enemy) => {
       enemy.world = this;
     });
-  }
-
-  run() {
-    setInterval(() => {
-      this.checkCollisions();
-      this.checkCoinCollisions();
-      this.checkThrowableObjectCollisions();
-      this.cleanUpThrowableObjects();
-      this.cleanUpEnemies();
-      this.cleanUpClouds();
-    }, 100);
   }
 
   checkCollisions() {
@@ -180,6 +185,52 @@ class World {
 
       return true;
     });
+  }
+
+  checkGameOver() {
+    if (this.character.isDead()) {
+      this.gameOver = true;
+      this.stopAllIntervals();
+      this.showGameOverScreen();
+    }
+  }
+
+  stopAllIntervals() {
+    clearInterval(this.runInterval);
+    clearTimeout(this.cloudSpawnTimeout);
+
+    if (this.character.moveInterval) clearInterval(this.character.moveInterval);
+    if (this.character.graphicsInterval)
+      clearInterval(this.character.graphicsInterval);
+
+    if (this.character.gravityInterval)
+      clearInterval(this.character.gravityInterval);
+
+    this.level.enemies.forEach((enemy) => {
+      if (enemy.moveInterval) clearInterval(enemy.moveInterval);
+      if (enemy.graphicsInterval) clearInterval(enemy.graphicsInterval);
+      if (enemy.gravityInterval) clearInterval(enemy.gravityInterval);
+      if (enemy.spawnTimeout) clearTimeout(enemy.spawnTimeout);
+    });
+
+    this.level.clouds.forEach((cloud) => {
+      if (cloud.moveInterval) clearInterval(cloud.moveInterval);
+    });
+
+    this.level.coins?.forEach((coin) => {
+      if (coin.graphicsInterval) clearInterval(coin.graphicsInterval);
+      if (coin.gravityInterval) clearInterval(coin.gravityInterval);
+    });
+
+    this.throwableObjects.forEach((obj) => {
+      if (obj.moveInterval) clearInterval(obj.moveInterval);
+      if (obj.graphicsInterval) clearInterval(obj.graphicsInterval);
+      if (obj.gravityInterval) clearInterval(obj.gravityInterval);
+    });
+  }
+
+  showGameOverScreen() {
+    document.getElementById("game-over-screen").style.display = "flex";
   }
 
   draw() {
