@@ -91,7 +91,6 @@ function initMobileControls() {
   const btnJump = document.getElementById("btn-jump");
   const btnThrow = document.getElementById("btn-throw");
 
-  // LINKS
   btnLeft.addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.left = true;
@@ -102,7 +101,6 @@ function initMobileControls() {
     keyboard.left = false;
   });
 
-  // RECHTS
   btnRight.addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.right = true;
@@ -113,7 +111,6 @@ function initMobileControls() {
     keyboard.right = false;
   });
 
-  // SPRINGEN
   btnJump.addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.space = true;
@@ -124,7 +121,6 @@ function initMobileControls() {
     keyboard.space = false;
   });
 
-  // WERFEN
   btnThrow.addEventListener("touchstart", (e) => {
     e.preventDefault();
 
