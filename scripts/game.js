@@ -5,6 +5,7 @@ let keyboard;
 function init() {}
 
 function startGame() {
+  document.body.classList.add("game-running");
   document.getElementById("start-screen").style.display = "none";
   canvas = document.getElementById("canvas");
   canvas.style.display = "block";
@@ -14,6 +15,7 @@ function startGame() {
 }
 
 function restartGame() {
+  document.body.classList.add("game-running");
   document.getElementById("game-over-screen").style.display = "none";
   document.getElementById("start-screen").style.display = "none";
 
@@ -28,6 +30,7 @@ function restartGame() {
 }
 
 function goToStartScreen() {
+  document.body.classList.remove("game-running");
   document.getElementById("game-over-screen").style.display = "none";
   document.getElementById("start-screen").style.display = "flex";
 
