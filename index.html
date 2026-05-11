@@ -30,7 +30,15 @@
       <button onclick="startGame()">Start Game</button>
       <button onclick="showControls()">Controls</button>
     </div>
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="game-wrapper">
+      <canvas id="canvas" width="720" height="480"></canvas>
+      <div id="mobile-controls" class="mobile-controls">
+        <button id="btn-left">←</button>
+        <button id="btn-right">→</button>
+        <button id="btn-throw">D</button>
+        <button id="btn-jump">↑</button>
+      </div>
+    </div>
     <div id="game-over-screen" class="game-over-screen" style="display: none;">
       <img src="img/You won, you lost/Game Over.png" alt="Game Over" />
       <div class="game-over-buttons">
