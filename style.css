@@ -182,6 +182,18 @@ h1 {
   display: none;
 }
 
+#game-wrapper:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
+
+#game-wrapper:fullscreen canvas {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
+
 body.game-running #game-wrapper {
   display: block;
 }

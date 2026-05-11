@@ -64,6 +64,10 @@ window.addEventListener("keydown", (event) => {
     }
     keyboard.d = true;
   }
+
+  if (event.key === "f") {
+    toggleFullscreen();
+  }
 });
 
 window.addEventListener("keyup", (event) => {
@@ -158,3 +162,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function toggleFullscreen() {
+  const gameWrapper = document.getElementById("game-wrapper");
+
+  if (!document.fullscreenElement) {
+    gameWrapper.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
