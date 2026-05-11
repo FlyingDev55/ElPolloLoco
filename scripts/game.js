@@ -11,6 +11,8 @@ function startGame() {
   canvas.style.display = "block";
   keyboard = new Keyboard();
   world = new World(canvas, keyboard, createLevel1());
+
+  initMobileControls();
   console.log("My world is: ", world.character);
 }
 
@@ -27,6 +29,7 @@ function restartGame() {
   canvas.style.display = "block";
   keyboard = new Keyboard();
   world = new World(canvas, keyboard, createLevel1());
+  initMobileControls();
 }
 
 function goToStartScreen() {
@@ -81,6 +84,67 @@ window.addEventListener("keyup", (event) => {
     world.throwBottle(pressDuration);
   }
 });
+
+function initMobileControls() {
+  const btnLeft = document.getElementById("btn-left");
+  const btnRight = document.getElementById("btn-right");
+  const btnJump = document.getElementById("btn-jump");
+  const btnThrow = document.getElementById("btn-throw");
+
+  // LINKS
+  btnLeft.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.left = true;
+  });
+
+  btnLeft.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.left = false;
+  });
+
+  // RECHTS
+  btnRight.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.right = true;
+  });
+
+  btnRight.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.right = false;
+  });
+
+  // SPRINGEN
+  btnJump.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.space = true;
+  });
+
+  btnJump.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.space = false;
+  });
+
+  // WERFEN
+  btnThrow.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+
+    if (!keyboard.d) {
+      keyboard.dPressedAt = Date.now();
+    }
+
+    keyboard.d = true;
+  });
+
+  btnThrow.addEventListener("touchend", (e) => {
+    e.preventDefault();
+
+    keyboard.d = false;
+
+    const pressDuration = Date.now() - keyboard.dPressedAt;
+
+    world.throwBottle(pressDuration);
+  });
+}
 
 function showControls() {
   document.getElementById("controls-modal").style.display = "flex";
