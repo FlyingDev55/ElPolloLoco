@@ -29,6 +29,7 @@
     <h1>El pollo loco</h1>
     <div id="start-screen">
       <button onclick="startGame()">Start Game</button>
+      <button onclick="showControls()">Controls</button>
     </div>
     <canvas id="canvas" width="720" height="480"></canvas>
     <div id="game-over-screen" class="game-over-screen" style="display: none;">
@@ -36,6 +37,27 @@
       <div class="game-over-buttons">
         <button onclick="restartGame()">Nochmal spielen</button>
         <button onclick="goToStartScreen()">Zum Startbildschirm</button>
+      </div>
+    </div>
+
+    <div id="controls-modal" class="controls-modal" style="display: none;">
+      <div class="controls-content">
+        <button onclick="closeControls()" class="close-btn">×</button>
+        <h2>Steuerung</h2>
+        <div class="controls-list">
+          <div class="control-item">
+            <span class="control-key">SPACE</span>
+            <span class="control-action">Springen</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">← →</span>
+            <span class="control-action">Bewegen</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">D</span>
+            <span class="control-action">Flasche werfen</span>
+          </div>
+        </div>
       </div>
     </div>
   </body>

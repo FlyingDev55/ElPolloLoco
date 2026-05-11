@@ -78,3 +78,20 @@ window.addEventListener("keyup", (event) => {
     world.throwBottle(pressDuration);
   }
 });
+
+function showControls() {
+  document.getElementById("controls-modal").style.display = "flex";
+}
+
+function closeControls() {
+  document.getElementById("controls-modal").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("controls-modal");
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeControls();
+    }
+  });
+});
