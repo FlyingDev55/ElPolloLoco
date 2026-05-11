@@ -178,11 +178,8 @@ h1 {
 }
 
 #game-wrapper {
-  position: fixed;
-  inset: 0;
+  position: relative;
   display: none;
-  background: black;
-  z-index: 1;
 }
 
 body.game-running #game-wrapper {
@@ -301,6 +298,13 @@ body.game-running #game-wrapper {
 
   body.game-running .mobile-controls {
     display: flex;
+  }
+
+  #game-wrapper {
+    position: fixed;
+    inset: 0;
+    background: black;
+    z-index: 1;
   }
 }
 
