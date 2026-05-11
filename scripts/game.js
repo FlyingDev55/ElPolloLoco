@@ -9,8 +9,35 @@ function startGame() {
   canvas = document.getElementById("canvas");
   canvas.style.display = "block";
   keyboard = new Keyboard();
-  world = new World(canvas, keyboard);
+  world = new World(canvas, keyboard, createLevel1());
   console.log("My world is: ", world.character);
+}
+
+function restartGame() {
+  document.getElementById("game-over-screen").style.display = "none";
+  document.getElementById("start-screen").style.display = "none";
+
+  if (world?.stopAllIntervals) {
+    world.stopAllIntervals();
+  }
+
+  canvas = document.getElementById("canvas");
+  canvas.style.display = "block";
+  keyboard = new Keyboard();
+  world = new World(canvas, keyboard, createLevel1());
+}
+
+function goToStartScreen() {
+  document.getElementById("game-over-screen").style.display = "none";
+  document.getElementById("start-screen").style.display = "flex";
+
+  canvas = document.getElementById("canvas");
+  canvas.style.display = "none";
+
+  if (world?.stopAllIntervals) {
+    world.stopAllIntervals();
+  }
+  world = null;
 }
 
 window.addEventListener("keydown", (event) => {

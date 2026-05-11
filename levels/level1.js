@@ -4,33 +4,37 @@ const levelMap = new Map([
   [3, 17280],
 ]);
 
-const listOfStartChicken = [
-  new Chicken(),
-  new Chicken(),
-  new Chicken(),
-  new Chicken(),
-  new Chicken(),
-  new Chicken(),
-  new MiniChicken(),
-  new MiniChicken(),
-  new MiniChicken(),
-  new MiniChicken(),
-  new MiniChicken(),
-  new Endboss(),
-];
+function createLevel1() {
+  const listOfStartChicken = [
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new MiniChicken(),
+    new MiniChicken(),
+    new MiniChicken(),
+    new MiniChicken(),
+    new MiniChicken(),
+    new Endboss(),
+  ];
 
-const cloudsAtStart = createCloudsAtStart(levelMap.get(1));
+  const cloudsAtStart = createCloudsAtStart(levelMap.get(1));
 
-const level1 = new Level(
-  listOfStartChicken,
-  cloudsAtStart,
-  createBackgroundObjects(1),
-);
-level1.levelWidth = levelMap.get(1);
+  const level = new Level(
+    listOfStartChicken,
+    cloudsAtStart,
+    createBackgroundObjects(1),
+  );
+  level.levelWidth = levelMap.get(1);
+  return level;
+}
+
+const level1 = createLevel1();
 
 function createCloudsAtStart(levelWidth) {
   const clouds = [];
-
   const spacing = 400;
 
   for (let x = 0; x < levelWidth; x += spacing) {
@@ -53,10 +57,8 @@ function createBackgroundObjects(levelNumber) {
   ];
 
   const objects = [];
-
   const tileWidth = 720;
   const levelWidth = levelMap.get(levelNumber);
-
   const maxTiles = levelWidth / tileWidth;
 
   for (let i = -1; i <= maxTiles; i++) {

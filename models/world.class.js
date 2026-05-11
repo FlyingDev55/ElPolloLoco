@@ -10,14 +10,16 @@ class World {
   throwableObjects = [];
   gameOver = false;
   runInterval;
+  drawAnimationFrameId;
 
-  constructor(canvas, keyboard) {
+  constructor(canvas, keyboard, level = level1) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.keyboard = keyboard;
     this.character = new Character();
     this.statusbar = new StatusBar();
     this.statusbarBoss = new StatusBar(true, 510, 10);
+    this.level = level;
     this.setWorld();
     this.startCloudSpawning();
     this.draw();
@@ -199,10 +201,13 @@ class World {
     clearInterval(this.runInterval);
     clearTimeout(this.cloudSpawnTimeout);
 
+    if (this.drawAnimationFrameId) {
+      cancelAnimationFrame(this.drawAnimationFrameId);
+    }
+
     if (this.character.moveInterval) clearInterval(this.character.moveInterval);
     if (this.character.graphicsInterval)
       clearInterval(this.character.graphicsInterval);
-
     if (this.character.gravityInterval)
       clearInterval(this.character.gravityInterval);
 
@@ -254,7 +259,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
 
-    requestAnimationFrame(() => this.draw());
+    this.drawAnimationFrameId = requestAnimationFrame(() => this.draw());
   }
 
   shouldShowBossBar() {
