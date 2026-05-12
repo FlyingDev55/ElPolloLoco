@@ -14,7 +14,18 @@ class Endboss extends Chicken {
   attackSpeed = 8;
   returnSpeed = 4;
   rageTimeWindow = 3000;
+  isAlerted = false;
+  hasSeenCharacter = false;
+
   IMAGES_WALKING = [
+    "img/4_enemie_boss_chicken/1_walk/G1.png",
+    "img/4_enemie_boss_chicken/1_walk/G2.png",
+    "img/4_enemie_boss_chicken/1_walk/G3.png",
+    "img/4_enemie_boss_chicken/1_walk/G4.png",
+  ];
+
+  IMAGES_ALERT = [
+    "img/4_enemie_boss_chicken/2_alert/G5.png",
     "img/4_enemie_boss_chicken/2_alert/G6.png",
     "img/4_enemie_boss_chicken/2_alert/G7.png",
     "img/4_enemie_boss_chicken/2_alert/G8.png",
@@ -22,6 +33,23 @@ class Endboss extends Chicken {
     "img/4_enemie_boss_chicken/2_alert/G10.png",
     "img/4_enemie_boss_chicken/2_alert/G11.png",
     "img/4_enemie_boss_chicken/2_alert/G12.png",
+  ];
+
+  IMAGES_ATTACKING = [
+    "img/4_enemie_boss_chicken/3_attack/G13.png",
+    "img/4_enemie_boss_chicken/3_attack/G14.png",
+    "img/4_enemie_boss_chicken/3_attack/G15.png",
+    "img/4_enemie_boss_chicken/3_attack/G16.png",
+    "img/4_enemie_boss_chicken/3_attack/G17.png",
+    "img/4_enemie_boss_chicken/3_attack/G18.png",
+    "img/4_enemie_boss_chicken/3_attack/G19.png",
+    "img/4_enemie_boss_chicken/3_attack/G20.png",
+  ];
+
+  IMAGES_HURT = [
+    "img/4_enemie_boss_chicken/4_hurt/G21.png",
+    "img/4_enemie_boss_chicken/4_hurt/G22.png",
+    "img/4_enemie_boss_chicken/4_hurt/G23.png",
   ];
 
   IMAGES_DEAD = [
@@ -46,26 +74,67 @@ class Endboss extends Chicken {
 
   constructor() {
     super();
-    this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
+    this.loadImage("img/4_enemie_boss_chicken/1_walk/G1.png");
     this.x = this.DEFAULT_LOCATION;
     this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_ALERT);
+    this.loadImages(this.IMAGES_ATTACKING);
+    this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.startSpawning();
     this.startAiLoop();
+  }
+
+  changeGraphics() {
+    this.graphicsInterval = setInterval(() => {
+      if (this.isDead()) {
+        this.playAnimationOnce(this.IMAGES_DEAD, "currentImageDead");
+        return;
+      }
+
+      if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT, "currentImageHurt");
+        return;
+      }
+
+      if (this.isAlerted) {
+        this.playAnimation(this.IMAGES_ALERT, "currentImageAlert");
+        return;
+      }
+
+      if (this.isAttacking) {
+        this.playAnimation(this.IMAGES_ATTACKING, "currentImageAttack");
+        return;
+      }
+
+      if (this.isReturning) {
+        this.playAnimation(this.IMAGES_WALKING, "currentImageWalking");
+        return;
+      }
+
+      this.img = this.imageCache["img/4_enemie_boss_chicken/1_walk/G1.png"];
+    }, 120);
   }
 
   startAiLoop() {
     this.aiInterval = setInterval(() => {
       if (this.isDead()) return;
 
-      if (
-        this.isCharacterTooClose() &&
-        !this.isAttacking &&
-        !this.isReturning
-      ) {
-        this.startAttack();
+      if (this.isCharacterTooClose() && !this.hasSeenCharacter) {
+        this.enterAlertMode();
       }
     }, 200);
+  }
+
+  enterAlertMode() {
+    this.hasSeenCharacter = true;
+    this.isAlerted = true;
+
+    setTimeout(() => {
+      if (!this.isDead()) {
+        this.startAttack();
+      }
+    }, 1000);
   }
 
   isCharacterTooClose() {
@@ -92,6 +161,7 @@ class Endboss extends Chicken {
 
     if (this.isAttacking || this.isReturning) return;
 
+    this.isAlerted = false;
     this.isAttacking = true;
 
     const randomExtraDistance = Math.random() * 250;
@@ -150,10 +220,11 @@ class Endboss extends Chicken {
       if (this.isReturning) {
         this.moveRight(this.returnSpeed);
 
-        if (this.x >= this.DEFAULT_LOCATION) {
+        if (this.x >= this.DEFAULT_LOCATION - 5) {
           this.x = this.DEFAULT_LOCATION;
 
           this.isReturning = false;
+          this.hasSeenCharacter = false;
 
           this.speed = 0;
         }
