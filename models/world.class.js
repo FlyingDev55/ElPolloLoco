@@ -218,6 +218,8 @@ class World {
       if (enemy.spawnTimeout) clearTimeout(enemy.spawnTimeout);
     });
 
+    if (enemy.aiInterval) clearInterval(enemy.aiInterval);
+
     this.level.clouds.forEach((cloud) => {
       if (cloud.moveInterval) clearInterval(cloud.moveInterval);
     });

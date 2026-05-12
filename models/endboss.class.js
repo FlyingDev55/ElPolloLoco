@@ -4,6 +4,16 @@ class Endboss extends Chicken {
   width = 400;
   energy = 100;
   speed = 0;
+  DEFAULT_LOCATION = 4000;
+  isAttacking = false;
+  isReturning = false;
+  attackTargetX = 0;
+  agroDistance = 250;
+  recentHits = [];
+  rageThreshold = 3;
+  attackSpeed = 8;
+  returnSpeed = 4;
+  rageTimeWindow = 3000;
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G6.png",
     "img/4_enemie_boss_chicken/2_alert/G7.png",
@@ -30,10 +40,33 @@ class Endboss extends Chicken {
   constructor() {
     super();
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
-    this.x = 4000;
+    this.x = this.DEFAULT_LOCATION;
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.startSpawning();
+    this.startAiLoop();
+  }
+
+  startAiLoop() {
+    this.aiInterval = setInterval(() => {
+      if (this.isDead()) return;
+
+      if (
+        this.isCharacterTooClose() &&
+        !this.isAttacking &&
+        !this.isReturning
+      ) {
+        this.startAttack();
+      }
+    }, 200);
+  }
+
+  isCharacterTooClose() {
+    if (!this.world) return false;
+
+    const distance = Math.abs(this.x - this.world.character.x);
+
+    return distance < this.agroDistance;
   }
 
   startSpawning() {
@@ -45,6 +78,23 @@ class Endboss extends Chicken {
       this.spawnChicken();
       this.scheduleNextSpawn();
     }, this.getRandomSpawnTime());
+  }
+
+  startAttack() {
+    if (!this.world || this.isDead()) return;
+
+    if (this.isAttacking || this.isReturning) return;
+
+    this.isAttacking = true;
+
+    const randomExtraDistance = Math.random() * 250;
+
+    this.attackTargetX = Math.max(
+      200,
+      this.world.character.x - randomExtraDistance,
+    );
+
+    this.speed = 10;
   }
 
   spawnChicken() {
@@ -69,5 +119,62 @@ class Endboss extends Chicken {
 
   getRandomSpawnTime() {
     return 1000 + Math.random() * 2000;
+  }
+
+  calculateMovement() {
+    this.moveInterval = setInterval(() => {
+      if (this.isDead()) {
+        this.speed = 0;
+        this.isCollidable = false;
+        return;
+      }
+
+      if (this.isAttacking) {
+        this.moveLeft(this.attackSpeed);
+
+        if (this.x <= this.attackTargetX) {
+          this.isAttacking = false;
+          this.isReturning = true;
+        }
+
+        return;
+      }
+
+      if (this.isReturning) {
+        this.moveRight(this.returnSpeed);
+
+        if (this.x >= this.DEFAULT_LOCATION) {
+          this.x = this.DEFAULT_LOCATION;
+
+          this.isReturning = false;
+
+          this.speed = 0;
+        }
+
+        return;
+      }
+    }, 1000 / 60);
+  }
+
+  hit() {
+    super.hit();
+
+    this.registerHitReaction();
+  }
+
+  registerHitReaction() {
+    const now = Date.now();
+
+    this.recentHits.push(now);
+
+    this.recentHits = this.recentHits.filter(
+      (time) => now - time < this.rageTimeWindow,
+    );
+
+    if (this.recentHits.length >= this.rageThreshold) {
+      this.startAttack();
+
+      this.recentHits = [];
+    }
   }
 }
