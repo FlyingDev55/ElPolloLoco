@@ -190,7 +190,7 @@ class Endboss extends Chicken {
       chicken = new MiniChicken();
       chicken.y = 385;
     }
-    chicken.x = this.x + this.width - 80;
+    chicken.x = this.x + this.width - 200;
     this.world.addEnemy(chicken);
   }
 
