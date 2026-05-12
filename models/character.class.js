@@ -8,8 +8,8 @@ class Character extends MovableObject {
   acceleration = 2;
   coinCount = 0;
   knockbackSpeed = 0;
-
   energy = 100;
+  ground = 435;
 
   offset = {
     top: 140,

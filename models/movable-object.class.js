@@ -78,6 +78,12 @@ class MovableObject extends DrawableObject {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
+
+      // Boden fixieren
+      if (this.y + this.height >= this.ground) {
+        this.y = this.ground - this.height;
+        this.speedY = 0;
+      }
     }, 1000 / 25);
   }
 
