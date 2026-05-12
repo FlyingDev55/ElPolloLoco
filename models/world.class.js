@@ -67,7 +67,7 @@ class World {
   }
 
   getRandomCloudSpawningTime() {
-    return 1000 + Math.random() * 4000;
+    return 2000 + Math.random() * 4000;
   }
 
   spawnCloud() {
