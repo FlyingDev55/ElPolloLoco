@@ -51,14 +51,29 @@ class MovableObject extends DrawableObject {
       bottom: 0,
     };
 
-    return (
+    const mainCollision =
       this.x + this.width - this.offset.right > movableObject.x + offset.left &&
       this.x + this.offset.left <
         movableObject.x + movableObject.width - offset.right &&
       this.y + this.height + this.offset.bottom >
         movableObject.y + offset.top &&
-      this.y < movableObject.y + movableObject.height - offset.bottom
-    );
+      this.y < movableObject.y + movableObject.height - offset.bottom;
+
+    if (!movableObject.bodyOffset) {
+      return mainCollision;
+    }
+
+    const body = movableObject.bodyOffset;
+
+    const bodyCollision =
+      this.x + this.width - this.offset.right > movableObject.x + body.left &&
+      this.x + this.offset.left <
+        movableObject.x + movableObject.width - body.right &&
+      this.y + this.height - this.offset.bottom > movableObject.y + body.top &&
+      this.y + this.offset.top <
+        movableObject.y + movableObject.height - body.bottom;
+
+    return mainCollision || bodyCollision;
   }
 
   isCollidingWithGround() {

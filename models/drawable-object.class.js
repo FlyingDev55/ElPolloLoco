@@ -45,16 +45,36 @@ class DrawableObject {
         right: 0,
         bottom: 0,
       };
+
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";
+
       ctx.rect(
         this.x + offset.left,
         this.y + offset.top,
         this.width - offset.left - offset.right,
         this.height - offset.top - offset.bottom,
       );
+
       ctx.stroke();
+
+      if (this.bodyOffset) {
+        const body = this.bodyOffset;
+
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "red";
+
+        ctx.rect(
+          this.x + body.left,
+          this.y + body.top,
+          this.width - body.left - body.right,
+          this.height - body.top - body.bottom,
+        );
+
+        ctx.stroke();
+      }
     }
   }
 }

@@ -37,6 +37,13 @@ class Endboss extends Chicken {
     bottom: 200,
   };
 
+  bodyOffset = {
+    top: 200,
+    left: 70,
+    right: 250,
+    bottom: 100,
+  };
+
   constructor() {
     super();
     this.loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
