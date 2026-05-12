@@ -96,13 +96,14 @@ class World {
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isCollidingFromAbove(enemy)) {
-        console.log("Jumping on enemy!", enemy);
         this.character.bounce();
-        AudioHub.playOne(AudioHub.CHICKENDEAD);
         enemy.hit();
       } else if (this.character.isColliding(enemy)) {
-        console.log("Collision with enemy!", enemy);
-        this.character.hit();
+        if (enemy instanceof Endboss) {
+          this.character.takeBossHit(enemy);
+        } else {
+          this.character.hit();
+        }
 
         this.statusbar.setPercentage(this.character.energy);
       }
@@ -216,9 +217,8 @@ class World {
       if (enemy.graphicsInterval) clearInterval(enemy.graphicsInterval);
       if (enemy.gravityInterval) clearInterval(enemy.gravityInterval);
       if (enemy.spawnTimeout) clearTimeout(enemy.spawnTimeout);
+      if (enemy.aiInterval) clearInterval(enemy.aiInterval);
     });
-
-    if (enemy.aiInterval) clearInterval(enemy.aiInterval);
 
     this.level.clouds.forEach((cloud) => {
       if (cloud.moveInterval) clearInterval(cloud.moveInterval);
@@ -243,23 +243,23 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.ctx.translate(this.camera_x, 0);
+    this.ctx.translate(Math.floor(this.camera_x), 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.coins);
 
-    this.ctx.translate(-this.camera_x, 0);
+    this.ctx.translate(-Math.floor(this.camera_x), 0);
     this.addToMap(this.statusbar);
     if (this.shouldShowBossBar()) {
       this.addToMap(this.statusbarBoss);
     }
-    this.ctx.translate(this.camera_x, 0);
+    this.ctx.translate(Math.floor(this.camera_x), 0);
 
     this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
 
-    this.ctx.translate(-this.camera_x, 0);
+    this.ctx.translate(-Math.floor(this.camera_x), 0);
 
     this.drawAnimationFrameId = requestAnimationFrame(() => this.draw());
   }

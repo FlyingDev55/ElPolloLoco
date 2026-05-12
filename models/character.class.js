@@ -7,6 +7,7 @@ class Character extends MovableObject {
   speedY = 0;
   acceleration = 2;
   coinCount = 0;
+  knockbackSpeed = 0;
 
   energy = 100;
 
@@ -70,27 +71,54 @@ class Character extends MovableObject {
   }
 
   calculateMovement() {
-    setInterval(() => {
+    this.moveInterval = setInterval(() => {
       if (this.isDead()) {
         return;
       }
+      this.applyKnockback();
+      this.applyMovement();
+      this.applyJump();
+      this.applyBackgroundMovement();
+    }, 1000 / 60);
+  }
 
+  applyBackgroundMovement() {
+    const maxLeft = 0;
+    const maxRight = -this.world.level.levelWidth + this.world.canvas.width;
+    this.world.camera_x = Math.max(maxRight, Math.min(maxLeft, -this.x + 100));
+  }
+
+  applyMovement() {
+    if (this.knockbackSpeed === 0) {
       if (this.world.keyboard.right && this.x < this.world.level.levelWidth) {
         this.moveRight(this.speed);
       } else if (this.world.keyboard.left && this.x > 0) {
         this.moveLeft(this.speed);
       }
+    }
+  }
 
-      if (this.world.keyboard.space && !this.isAboveGround()) {
-        this.jump();
+  applyKnockback() {
+    if (this.knockbackSpeed !== 0) {
+      this.x += this.knockbackSpeed;
+      this.x = Math.max(0, Math.min(this.x, this.world.level.levelWidth));
+
+      this.knockbackSpeed *= 0.85;
+
+      if (Math.abs(this.knockbackSpeed) < 1) {
+        this.knockbackSpeed = 0;
       }
+    }
+  }
 
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+  applyJump() {
+    if (this.world.keyboard.space && !this.isAboveGround()) {
+      this.jump();
+    }
   }
 
   changeGraphics() {
-    setInterval(() => {
+    this.graphicsInterval = setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD, "currentImageDead");
       } else if (this.isHurt()) {
@@ -103,5 +131,23 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE, "currentImageIdle");
       }
     }, 70);
+  }
+
+  takeBossHit(enemy) {
+    if (this.isHurt()) return;
+
+    this.energy -= 20;
+
+    this.lastHit = Date.now();
+
+    this.bounceBack(enemy);
+  }
+
+  bounceBack(enemy) {
+    this.speedY = 10;
+
+    if (this.x < enemy.x) {
+      this.knockbackSpeed = -15;
+    }
   }
 }
