@@ -158,7 +158,8 @@ h1 {
 
 .control-action {
   color: black;
-  font-size: 16px;
+  font-size: 20px;
+  letter-spacing: 1px;
 }
 
 .close-btn {
