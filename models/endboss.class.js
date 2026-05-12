@@ -177,4 +177,9 @@ class Endboss extends Chicken {
       this.recentHits = [];
     }
   }
+
+  stopAttack() {
+    this.isAttacking = false;
+    this.isReturning = true;
+  }
 }

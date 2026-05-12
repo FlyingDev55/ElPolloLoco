@@ -100,6 +100,7 @@ class World {
         enemy.hit();
       } else if (this.character.isColliding(enemy)) {
         if (enemy instanceof Endboss) {
+          enemy.stopAttack();
           this.character.takeBossHit(enemy);
         } else {
           this.character.hit();
