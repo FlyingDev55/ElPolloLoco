@@ -1,27 +1,9 @@
 class StatusBar extends DrawableObject {
   percentage = 100;
 
-  IMAGES = [
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png",
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png",
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png",
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png",
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png",
-    "img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png",
-  ];
-
-  IMAGES_BOSS = [
-    "img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
-    "img/7_statusbars/2_statusbar_endboss/orange/orange20.png",
-    "img/7_statusbars/2_statusbar_endboss/orange/orange40.png",
-    "img/7_statusbars/2_statusbar_endboss/orange/orange60.png",
-    "img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
-    "img/7_statusbars/2_statusbar_endboss/orange/orange100.png",
-  ];
-
-  constructor(isBoss = false, x = 30, y = 0) {
+  constructor(images, x = 30, y = 0) {
     super();
-    this.images = isBoss ? this.IMAGES_BOSS : this.IMAGES;
+    this.images = images;
     this.loadImages(this.images);
     this.x = x;
     this.y = y;

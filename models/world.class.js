@@ -7,6 +7,8 @@ class World {
   camera_x = 0;
   statusbar;
   statusbarBoss;
+  statusBarCoin;
+  statusBarBottle;
   throwableObjects = [];
   gameOver = false;
   runInterval;
@@ -17,8 +19,10 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.keyboard = keyboard;
     this.character = new Character();
-    this.statusbar = new StatusBar();
-    this.statusbarBoss = new StatusBar(true, 510, 10);
+    this.statusbar = new CharacterBar();
+    this.statusbarBoss = new BossBar();
+    this.statusBarCoin = new CoinBar();
+    this.statusBarBottle = new BottleBar();
     this.level = level;
     this.setWorld();
     this.startCloudSpawning();
@@ -251,6 +255,8 @@ class World {
 
     this.ctx.translate(-Math.floor(this.camera_x), 0);
     this.addToMap(this.statusbar);
+    this.addToMap(this.statusBarCoin);
+    this.addToMap(this.statusBarBottle);
     if (this.shouldShowBossBar()) {
       this.addToMap(this.statusbarBoss);
     }
