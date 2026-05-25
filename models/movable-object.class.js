@@ -94,7 +94,6 @@ class MovableObject extends DrawableObject {
         this.speedY -= this.acceleration;
       }
 
-      // Boden fixieren
       if (this.y + this.height >= this.ground) {
         this.y = this.ground - this.height;
         this.speedY = 0;
@@ -154,5 +153,23 @@ class MovableObject extends DrawableObject {
     let path = images[this[indexProp]];
     this.img = this.imageCache[path];
     this[indexProp]++;
+  }
+
+  playAnimationOncePerState(images, indexProp, animationName) {
+    if (this.currentAnimation !== animationName) {
+      this.currentAnimation = animationName;
+      this[indexProp] = 0;
+    }
+
+    if (this[indexProp] >= images.length) {
+      this[indexProp] = images.length - 1;
+    }
+
+    let path = images[this[indexProp]];
+    this.img = this.imageCache[path];
+
+    if (this[indexProp] < images.length - 1) {
+      this[indexProp]++;
+    }
   }
 }

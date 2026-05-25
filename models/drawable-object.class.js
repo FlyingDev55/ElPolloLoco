@@ -7,6 +7,7 @@ class DrawableObject {
   imageCache = [];
   currentImageWalking = 0;
   currentImageJumping = 0;
+  currentImageFalling = 0;
   currentImageIdle = 0;
   currentImageHurt = 0;
   currentImageDead = 0;
