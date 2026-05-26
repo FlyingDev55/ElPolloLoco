@@ -36,6 +36,7 @@ class World {
 
       this.checkCollisions();
       this.checkCoinCollisions();
+      this.checkBottleCollisions();
       this.checkThrowableObjectCollisions();
       this.cleanUpThrowableObjects();
       this.cleanUpEnemies();
@@ -45,6 +46,8 @@ class World {
   }
 
   throwBottle(duration) {
+    if (this.character.bottleCount <= 0) return;
+
     const maxTime = 3000;
     const limitedDuration = Math.min(duration, maxTime);
     const power = limitedDuration / maxTime;
@@ -63,6 +66,10 @@ class World {
       throwableObject.damage += 10;
     }
 
+    this.character.bottleCount--;
+
+    this.statusBarBottle.setPercentage(this.character.bottleCount * 2);
+
     console.log(`Throwable object damage: ${throwableObject.damage}`);
 
     this.throwableObjects.push(throwableObject);
@@ -77,6 +84,16 @@ class World {
       this.spawnCloud();
       this.scheduleNextCloud();
     }, this.getRandomCloudSpawningTime());
+  }
+
+  checkBottleCollisions() {
+    this.level.bottles.forEach((bottle) => {
+      if (bottle.isCollectable && this.character.isColliding(bottle)) {
+        this.character.collectBottle();
+
+        this.statusBarBottle.setPercentage(this.character.bottleCount);
+      }
+    });
   }
 
   getRandomCloudSpawningTime() {
@@ -254,6 +271,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.bottles);
 
     this.ctx.translate(-Math.floor(this.camera_x), 0);
     this.addToMap(this.statusbar);

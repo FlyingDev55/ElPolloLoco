@@ -12,6 +12,7 @@ class Character extends MovableObject {
   ground = 435;
   currentAnimation = "";
   lastY = 0;
+  bottleCount = 0;
 
   offset = {
     top: 140,
@@ -192,5 +193,9 @@ class Character extends MovableObject {
     super.hit();
 
     this.loseCoins(1);
+  }
+
+  collectBottle() {
+    this.bottleCount = 100;
   }
 }

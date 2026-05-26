@@ -27,7 +27,11 @@ function createLevel1() {
     cloudsAtStart,
     createBackgroundObjects(1),
   );
+
   level.levelWidth = levelMap.get(1);
+
+  level.bottles = [new Bottle(400)];
+
   return level;
 }
 
