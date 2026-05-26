@@ -74,8 +74,12 @@ class Chicken extends MovableObject {
         let coin = new Coin();
         coin.world = this.world;
         coin.x = this.x + this.width / 2 - coin.width / 2;
-        coin.y = this.y - 30;
+        coin.y = this.y - 120;
+        coin.speedY = 12;
         coin.applyGravity();
+        setTimeout(() => {
+          coin.isCollectable = true;
+        }, 500);
         this.world.level.coins.push(coin);
       }
     }
