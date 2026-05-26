@@ -163,6 +163,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const impressumModal = document.getElementById("impressum-modal");
+
+  impressumModal?.addEventListener("click", (e) => {
+    if (e.target === impressumModal) {
+      closeImpressum();
+    }
+  });
+});
+
 function toggleFullscreen() {
   const gameWrapper = document.getElementById("game-wrapper");
 
@@ -171,4 +181,12 @@ function toggleFullscreen() {
   } else {
     document.exitFullscreen();
   }
+}
+
+function showImpressum() {
+  document.getElementById("impressum-modal").style.display = "flex";
+}
+
+function closeImpressum() {
+  document.getElementById("impressum-modal").style.display = "none";
 }

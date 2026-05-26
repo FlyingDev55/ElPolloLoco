@@ -236,6 +236,13 @@ body.game-running #game-wrapper {
   box-shadow: 0 2px 0 #8b2c00;
 }
 
+.impressum-btn {
+  position: absolute;
+  bottom: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 @media (hover: none) and (orientation: portrait) {
   html,
   body {

@@ -34,6 +34,7 @@
     <div id="start-screen">
       <button onclick="startGame()">Start Game</button>
       <button onclick="showControls()">Controls</button>
+      <button class="impressum-btn" onclick="showImpressum()">Impressum</button>
     </div>
     <div id="game-wrapper">
       <canvas id="canvas" width="720" height="480"></canvas>
@@ -92,6 +93,21 @@
             <span class="control-action">Fullscreen</span>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="impressum-modal" class="controls-modal" style="display: none;">
+      <div class="controls-content">
+        <button onclick="closeImpressum()" class="close-btn">×</button>
+
+        <h2>Impressum</h2>
+
+        <p>
+          Sahin Varol<br />
+          Am Flachsrosterweg 1<br />
+          51061 Köln
+        </p>
+
+        <p>E-Mail: sahin@varol-dev.com</p>
       </div>
     </div>
   </body>
