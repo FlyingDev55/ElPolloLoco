@@ -119,6 +119,9 @@ class World {
     this.level.coins = this.level.coins.filter((coin) => {
       if (this.character.isColliding(coin)) {
         this.character.collectCoin();
+
+        this.statusBarCoin.setPercentage(this.character.coinCount * 10);
+
         return false;
       }
       return true;

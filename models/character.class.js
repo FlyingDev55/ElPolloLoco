@@ -70,7 +70,9 @@ class Character extends MovableObject {
   }
 
   collectCoin() {
-    this.coinCount++;
+    if (this.coinCount < 10) {
+      this.coinCount++;
+    }
   }
 
   calculateMovement() {
