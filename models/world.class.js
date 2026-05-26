@@ -42,6 +42,7 @@ class World {
       this.cleanUpEnemies();
       this.cleanUpClouds();
       this.checkGameOver();
+      this.checkWin();
     }, 100);
   }
 
@@ -222,6 +223,17 @@ class World {
     }
   }
 
+  checkWin() {
+    if (this.gameOver) return;
+    const boss = this.level.enemies.find((enemy) => enemy instanceof Endboss);
+
+    if (boss && boss.isDead()) {
+      this.gameOver = true;
+      this.stopAllIntervals();
+      this.showWinScreen();
+    }
+  }
+
   stopAllIntervals() {
     clearInterval(this.runInterval);
     clearTimeout(this.cloudSpawnTimeout);
@@ -262,6 +274,10 @@ class World {
 
   showGameOverScreen() {
     document.getElementById("game-over-screen").style.display = "flex";
+  }
+
+  showWinScreen() {
+    document.getElementById("win-screen").style.display = "flex";
   }
 
   draw() {

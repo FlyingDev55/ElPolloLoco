@@ -2,8 +2,6 @@ let canvas;
 let world;
 let keyboard;
 
-function init() {}
-
 function startGame() {
   document.body.classList.add("game-running");
   document.getElementById("start-screen").style.display = "none";
@@ -19,6 +17,7 @@ function startGame() {
 function restartGame() {
   document.body.classList.add("game-running");
   document.getElementById("game-over-screen").style.display = "none";
+  document.getElementById("win-screen").style.display = "none";
   document.getElementById("start-screen").style.display = "none";
 
   if (world?.stopAllIntervals) {
@@ -35,6 +34,7 @@ function restartGame() {
 function goToStartScreen() {
   document.body.classList.remove("game-running");
   document.getElementById("game-over-screen").style.display = "none";
+  document.getElementById("win-screen").style.display = "none";
   document.getElementById("start-screen").style.display = "flex";
 
   canvas = document.getElementById("canvas");

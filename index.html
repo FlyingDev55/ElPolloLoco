@@ -30,7 +30,7 @@
     <script src="levels/level1.js"></script>
     <script src="scripts/game.js"></script>
   </head>
-  <body onload="init()">
+  <body>
     <div id="start-screen">
       <button onclick="startGame()">Start Game</button>
       <button onclick="showControls()">Controls</button>
@@ -53,6 +53,15 @@
       <img src="img/You won, you lost/Game Over.png" alt="Game Over" />
       <div class="game-over-buttons">
         <button onclick="restartGame()">Nochmal spielen</button>
+        <button onclick="goToStartScreen()">Zum Startbildschirm</button>
+      </div>
+    </div>
+    <div id="win-screen" class="game-over-screen" style="display: none;">
+      <img src="img/You won, you lost/You Won B.png" alt="You Won" />
+
+      <div class="game-over-buttons">
+        <button onclick="restartGame()">Nochmal spielen</button>
+
         <button onclick="goToStartScreen()">Zum Startbildschirm</button>
       </div>
     </div>
