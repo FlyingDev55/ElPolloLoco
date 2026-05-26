@@ -12,8 +12,6 @@ class MovableObject extends DrawableObject {
   gravityInterval;
   graphicsInterval;
 
-  puffer = 10;
-
   offset = {
     top: 0,
     left: 0,
@@ -34,8 +32,8 @@ class MovableObject extends DrawableObject {
     return (
       this.isColliding(movableObject) &&
       this.speedY < 0 &&
-      this.y + this.height - this.offset.bottom <
-        movableObject.y + movableObject.offset.top + this.puffer
+      this.lastY + this.height - this.offset.bottom <=
+        movableObject.y + movableObject.offset.top
     );
   }
 
@@ -105,10 +103,14 @@ class MovableObject extends DrawableObject {
     return this.y + this.height < this.ground;
   }
 
-  hit() {
-    this.energy -= 2;
+  takeDamage(amount) {
+    this.energy -= amount;
     this.lastHit = Date.now();
     this.currentImageHurt = 0;
+  }
+
+  hit() {
+    this.takeDamage(2);
   }
 
   isDead() {

@@ -11,6 +11,7 @@ class Character extends MovableObject {
   energy = 100;
   ground = 435;
   currentAnimation = "";
+  lastY = 0;
 
   offset = {
     top: 140,
@@ -77,6 +78,7 @@ class Character extends MovableObject {
 
   calculateMovement() {
     this.moveInterval = setInterval(() => {
+      this.lastY = this.y;
       if (this.isDead()) {
         return;
       }

@@ -4,6 +4,7 @@ class ThrowableObject extends MovableObject {
   speedY = 50;
   acceleration = 1.5;
   speed = 5;
+  damage = 1;
 
   IMAGES_ROTATION = [
     "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",

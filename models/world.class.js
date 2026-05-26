@@ -53,8 +53,17 @@ class World {
       this.character.x + 50,
       this.character.y + 150,
     );
+
     throwableObject.speed = 5 + power * 10;
     throwableObject.speedY = 10 + power * 10;
+
+    throwableObject.damage = 1 + this.character.coinCount * 2;
+
+    if (this.character.coinCount >= 5) {
+      throwableObject.damage += 10;
+    }
+
+    console.log(`Throwable object damage: ${throwableObject.damage}`);
 
     this.throwableObjects.push(throwableObject);
   }
@@ -128,25 +137,15 @@ class World {
     });
   }
 
-  checkThrowObjects() {
-    if (this.keyboard.d) {
-      console.log("Throwing object!");
-      let throwableObject = new ThrowableObject(
-        this.character.x + 100,
-        this.character.y + 100,
-      );
-      this.throwableObjects.push(throwableObject);
-    }
-  }
-
   checkThrowableObjectCollisions() {
     this.throwableObjects.forEach((throwableObject, index) => {
       this.level.enemies.forEach((enemy) => {
         if (throwableObject.isColliding(enemy)) {
           console.log("Throwable object hit enemy!", enemy);
           throwableObject.hit();
-          enemy.hit();
-
+          enemy.takeDamage(throwableObject.damage);
+          console.log(`Throwable object damage: ${throwableObject.damage}`);
+          console.log(`Enemy energy after hit: ${enemy.energy}`);
           if (enemy instanceof Endboss) {
             this.statusbarBoss.setPercentage(enemy.energy);
           }
