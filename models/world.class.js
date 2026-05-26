@@ -120,7 +120,7 @@ class World {
       if (coin.isCollectable && this.character.isColliding(coin)) {
         this.character.collectCoin();
 
-        this.statusBarCoin.setPercentage(this.character.coinCount * 10);
+        this.statusBarCoin.setPercentage(this.character.coinCount * 20);
 
         return false;
       }

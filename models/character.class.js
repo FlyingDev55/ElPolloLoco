@@ -70,7 +70,7 @@ class Character extends MovableObject {
   }
 
   collectCoin() {
-    if (this.coinCount < 10) {
+    if (this.coinCount < 5) {
       this.coinCount++;
     }
   }
@@ -172,5 +172,23 @@ class Character extends MovableObject {
     if (this.x < enemy.x) {
       this.knockbackSpeed = -15;
     }
+  }
+
+  loseCoins(amount) {
+    this.coinCount -= amount;
+
+    if (this.coinCount < 0) {
+      this.coinCount = 0;
+    }
+
+    this.world.statusBarCoin.setPercentage(this.coinCount * 20);
+  }
+
+  hit() {
+    if (this.isHurt()) return;
+
+    super.hit();
+
+    this.loseCoins(1);
   }
 }
