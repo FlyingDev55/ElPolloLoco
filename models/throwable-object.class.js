@@ -21,10 +21,11 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
-  constructor(x, y) {
+  constructor(x, y, otherDirection) {
     super();
     this.x = x;
     this.y = y;
+    this.otherDirection = otherDirection;
     this.loadImage("img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png");
     this.loadImages(this.IMAGES_ROTATION);
     this.loadImages(this.IMAGES_BROKEN);
@@ -52,7 +53,11 @@ class ThrowableObject extends MovableObject {
         this.isCollidable = false;
         return;
       }
-      this.x += this.speed;
+      if (this.otherDirection) {
+        this.x -= this.speed;
+      } else {
+        this.x += this.speed;
+      }
     }, 1000 / 60);
     this.speedY = 15;
   }

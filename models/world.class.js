@@ -56,6 +56,7 @@ class World {
     let throwableObject = new ThrowableObject(
       this.character.x + 50,
       this.character.y + 150,
+      this.character.otherDirection,
     );
 
     throwableObject.speed = 5 + power * 10;
@@ -233,7 +234,7 @@ class World {
       setTimeout(() => {
         this.stopAllIntervals();
         this.showWinScreen();
-      }, 2500);
+      }, 2000);
     }
   }
 
