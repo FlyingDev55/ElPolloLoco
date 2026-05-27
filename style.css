@@ -29,6 +29,7 @@ h1 {
 }
 
 #start-screen {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -238,7 +239,7 @@ body.game-running #game-wrapper {
 
 .impressum-btn {
   position: absolute;
-  bottom: 13%;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
 }

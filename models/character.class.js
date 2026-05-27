@@ -68,6 +68,7 @@ class Character extends MovableObject {
   }
 
   bounce() {
+    this.y -= 20;
     this.speedY = 15;
   }
 
@@ -79,7 +80,6 @@ class Character extends MovableObject {
 
   calculateMovement() {
     this.moveInterval = setInterval(() => {
-      this.lastY = this.y;
       if (this.isDead()) {
         return;
       }

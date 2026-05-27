@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
   animationInterval;
   gravityInterval;
   graphicsInterval;
+  collidingPuffer = 40;
 
   offset = {
     top: 0,
@@ -31,9 +32,9 @@ class MovableObject extends DrawableObject {
   isCollidingFromAbove(movableObject) {
     return (
       this.isColliding(movableObject) &&
-      this.speedY < 0 &&
+      this.speedY < -5 &&
       this.lastY + this.height - this.offset.bottom <=
-        movableObject.y + movableObject.offset.top
+        movableObject.y + movableObject.offset.top + this.collidingPuffer
     );
   }
 
@@ -88,6 +89,7 @@ class MovableObject extends DrawableObject {
       }
 
       if (this.isAboveGround() || this.speedY > 0) {
+        this.lastY = this.y;
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
