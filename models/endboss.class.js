@@ -179,13 +179,14 @@ class Endboss extends Chicken {
 
     let chicken;
     if (Math.random() < 0.5) {
-      chicken = new Chicken();
-      chicken.y = 360;
-
       if (Math.random() < 1 / 3) {
+        chicken = new GoldChicken();
         chicken.speed *= 5;
         chicken.hasCoin = true;
+      } else {
+        chicken = new Chicken();
       }
+      chicken.y = 360;
     } else {
       chicken = new MiniChicken();
       chicken.y = 385;

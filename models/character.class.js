@@ -13,6 +13,7 @@ class Character extends MovableObject {
   currentAnimation = "";
   lastY = 0;
   bottleCount = 0;
+  bottleBarTier = 0;
   idleSince = null;
   LONG_IDLE_THRESHOLD = 5000;
 
@@ -239,7 +240,20 @@ class Character extends MovableObject {
     this.loseCoins(1);
   }
 
+  canCollectBottle() {
+    return this.bottleBarTier < 100;
+  }
+
   collectBottle() {
-    this.bottleCount = 100;
+    this.bottleCount = Math.min(this.bottleCount + 20, 100);
+    this.bottleBarTier = Math.min(this.bottleBarTier + 20, 100);
+  }
+
+  useBottle() {
+    this.bottleCount--;
+
+    if (this.bottleCount <= this.bottleBarTier - 20) {
+      this.bottleBarTier -= 20;
+    }
   }
 }

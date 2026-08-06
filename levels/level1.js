@@ -4,7 +4,13 @@ const levelMap = new Map([
   [3, 17280],
 ]);
 
+const BOTTLE_SPAWN_COUNT = 12;
+const BOTTLE_MIN_SPACING = 200;
+const BOTTLE_SPAWN_START_X = 300;
+
 function createLevel1() {
+  const endboss = new Endboss();
+
   const listOfStartChicken = [
     new Chicken(),
     new Chicken(),
@@ -17,7 +23,7 @@ function createLevel1() {
     new MiniChicken(),
     new MiniChicken(),
     new MiniChicken(),
-    new Endboss(),
+    endboss,
   ];
 
   const cloudsAtStart = createCloudsAtStart(levelMap.get(1));
@@ -30,9 +36,35 @@ function createLevel1() {
 
   level.levelWidth = levelMap.get(1);
 
-  level.bottles = [new Bottle(400)];
+  level.bottles = createBottles(
+    BOTTLE_SPAWN_COUNT,
+    BOTTLE_SPAWN_START_X,
+    endboss.DEFAULT_LOCATION,
+    BOTTLE_MIN_SPACING,
+  );
 
   return level;
+}
+
+function createBottles(count, minX, maxX, minSpacing) {
+  const positions = [];
+  const maxAttempts = count * 30;
+  let attempts = 0;
+
+  while (positions.length < count && attempts < maxAttempts) {
+    attempts++;
+
+    const x = minX + Math.random() * (maxX - minX);
+    const tooClose = positions.some(
+      (existingX) => Math.abs(existingX - x) < minSpacing,
+    );
+
+    if (!tooClose) {
+      positions.push(x);
+    }
+  }
+
+  return positions.map((x) => new Bottle(x));
 }
 
 const level1 = createLevel1();
