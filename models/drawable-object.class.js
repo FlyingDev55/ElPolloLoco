@@ -9,6 +9,7 @@ class DrawableObject {
   currentImageJumping = 0;
   currentImageFalling = 0;
   currentImageIdle = 0;
+  currentImageLongIdle = 0;
   currentImageHurt = 0;
   currentImageDead = 0;
   currentImageBottleRotation = 0;
