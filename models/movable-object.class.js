@@ -32,7 +32,7 @@ class MovableObject extends DrawableObject {
   isCollidingFromAbove(movableObject) {
     return (
       this.isColliding(movableObject) &&
-      this.speedY < -5 &&
+      this.speedY <= 0 &&
       this.lastY + this.height - this.offset.bottom <=
         movableObject.y + movableObject.offset.top + this.collidingPuffer
     );
@@ -88,8 +88,9 @@ class MovableObject extends DrawableObject {
         }
       }
 
+      this.lastY = this.y;
+
       if (this.isAboveGround() || this.speedY > 0) {
-        this.lastY = this.y;
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }

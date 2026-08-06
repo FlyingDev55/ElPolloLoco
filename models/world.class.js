@@ -43,7 +43,7 @@ class World {
       this.cleanUpClouds();
       this.checkGameOver();
       this.checkWin();
-    }, 100);
+    }, 1000 / 25);
   }
 
   throwBottle(duration) {
