@@ -68,9 +68,9 @@ class World {
       throwableObject.damage += 10;
     }
 
-    this.character.bottleCount--;
+    this.character.useBottle();
 
-    this.statusBarBottle.setPercentage(this.character.bottleCount * 2);
+    this.statusBarBottle.setPercentage(this.character.bottleBarTier);
 
     console.log(`Throwable object damage: ${throwableObject.damage}`);
 
@@ -89,12 +89,19 @@ class World {
   }
 
   checkBottleCollisions() {
-    this.level.bottles.forEach((bottle) => {
-      if (bottle.isCollectable && this.character.isColliding(bottle)) {
+    this.level.bottles = this.level.bottles.filter((bottle) => {
+      if (
+        bottle.isCollectable &&
+        this.character.canCollectBottle() &&
+        this.character.isColliding(bottle)
+      ) {
         this.character.collectBottle();
 
-        this.statusBarBottle.setPercentage(this.character.bottleCount);
+        this.statusBarBottle.setPercentage(this.character.bottleBarTier);
+
+        return false;
       }
+      return true;
     });
   }
 
