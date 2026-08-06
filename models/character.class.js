@@ -13,6 +13,8 @@ class Character extends MovableObject {
   currentAnimation = "";
   lastY = 0;
   bottleCount = 0;
+  idleSince = null;
+  LONG_IDLE_THRESHOLD = 5000;
 
   offset = {
     top: 140,
@@ -21,7 +23,31 @@ class Character extends MovableObject {
     bottom: 20,
   };
 
-  IMAGES_IDLE = ["img/2_character_pepe/1_idle/idle/I-1.png"];
+  IMAGES_IDLE = [
+    "img/2_character_pepe/1_idle/idle/I-1.png",
+    "img/2_character_pepe/1_idle/idle/I-2.png",
+    "img/2_character_pepe/1_idle/idle/I-3.png",
+    "img/2_character_pepe/1_idle/idle/I-4.png",
+    "img/2_character_pepe/1_idle/idle/I-5.png",
+    "img/2_character_pepe/1_idle/idle/I-6.png",
+    "img/2_character_pepe/1_idle/idle/I-7.png",
+    "img/2_character_pepe/1_idle/idle/I-8.png",
+    "img/2_character_pepe/1_idle/idle/I-9.png",
+    "img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+
+  IMAGES_LONG_IDLE = [
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
 
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
@@ -53,6 +79,7 @@ class Character extends MovableObject {
     super();
     this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_LONG_IDLE);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_FALLING);
@@ -132,31 +159,48 @@ class Character extends MovableObject {
   changeGraphics() {
     this.graphicsInterval = setInterval(() => {
       if (this.isDead()) {
+        this.idleSince = null;
         this.playAnimationOncePerState(
           this.IMAGES_DEAD,
           "currentImageDead",
           "dead",
         );
       } else if (this.isHurt()) {
+        this.idleSince = null;
         this.playAnimation(this.IMAGES_HURT, "currentImageHurt");
       } else if (this.isFalling()) {
+        this.idleSince = null;
         this.playAnimationOncePerState(
           this.IMAGES_FALLING,
           "currentImageFalling",
           "falling",
         );
       } else if (this.isAboveGround()) {
+        this.idleSince = null;
         this.playAnimationOncePerState(
           this.IMAGES_JUMPING,
           "currentImageJumping",
           "jumping",
         );
       } else if (this.world.keyboard.right || this.world.keyboard.left) {
+        this.idleSince = null;
         this.playAnimation(this.IMAGES_WALKING, "currentImageWalking");
       } else {
-        this.playAnimation(this.IMAGES_IDLE, "currentImageIdle");
+        this.playIdleAnimation();
       }
     }, 70);
+  }
+
+  playIdleAnimation() {
+    if (this.idleSince === null) {
+      this.idleSince = Date.now();
+    }
+
+    if (Date.now() - this.idleSince >= this.LONG_IDLE_THRESHOLD) {
+      this.playAnimation(this.IMAGES_LONG_IDLE, "currentImageLongIdle");
+    } else {
+      this.playAnimation(this.IMAGES_IDLE, "currentImageIdle");
+    }
   }
 
   takeBossHit(enemy) {
